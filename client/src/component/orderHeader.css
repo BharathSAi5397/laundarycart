@@ -1,0 +1,11 @@
+.profileimage {
+    top: 19px;
+    left: 1249px;
+    width: 43px;
+    height: 43px;
+}
+
+.navright{
+    display: flex;
+    flex-direction: row;
+}
