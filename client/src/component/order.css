@@ -1,6 +1,6 @@
 .ordergridContainer{
     min-height: 83vh;
-    background-color: aqua;
+    /* background-color: aqua; */
     display: grid;
     grid-template-columns: 40px auto;
 }

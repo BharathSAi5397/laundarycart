@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors')
 const app = express();
 const bodyParser = require("body-parser");
 const {UserData,OrdersData}= require("./models/laundarymodel");
@@ -10,15 +11,17 @@ const  orderRoutes  = require("./routes/orderRoutes");
 
 //middleware
 app.use(bodyParser());
+app.use(cors())
+app.use("/api/v1/order",reqAuth);//authentication middleware
 
-//app.use("/api/v1/order",reqAuth);//authentication middleware
+app.use("/api/v1/posts",reqAuth)
 
 //mongoose connection
 main().catch((err) => console.log(err));
 
 async function main() {
   await mongoose.connect(
-    "mongodb+srv://10xlaundary:laundary1234@cluster0.on6dtr0.mongodb.net/laundarycollection?retryWrites=true&w=majority"
+    "mongodb://10xlaundary:laundary1234@ac-h8uk8ka-shard-00-00.on6dtr0.mongodb.net:27017,ac-h8uk8ka-shard-00-01.on6dtr0.mongodb.net:27017,ac-h8uk8ka-shard-00-02.on6dtr0.mongodb.net:27017/laundarycollection?ssl=true&replicaSet=atlas-9v9nfg-shard-0&authSource=admin&retryWrites=true&w=majority"
   );
   console.log("Database Connected");
 }

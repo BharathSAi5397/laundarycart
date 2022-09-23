@@ -110,5 +110,5 @@ const OrdersSchema = new Schema({
 },{timestamps:true})
 
 const UserData = mongoose.model("Userdata",UserSchema);
-const OrdersData = mongoose.model("orderData",OrdersSchema);
+const OrdersData = mongoose.model("OrderData",OrdersSchema);
 module.exports={UserData,OrdersData};
