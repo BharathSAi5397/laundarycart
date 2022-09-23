@@ -7,6 +7,7 @@ import Verticalnav from './verticalnav';
 import {  Route, Routes } from 'react-router-dom';
 import Tester from './tester';
 import { Link } from 'react-router-dom'
+import Previousorders from './getprevorders';
 
 const Order=()=> {
   return (
@@ -17,9 +18,9 @@ const Order=()=> {
                 <Verticalnav />
             </div>
             <div className='ordercomponent'>
-            <button className='button'><Link className='linkstyle' to='/order/create'> create</Link></button>
+            {/* <button className='button'><Link className='linkstyle' to='/order/create'> create</Link></button> */}
              
-                
+               < Previousorders /> 
 
             </div>
 

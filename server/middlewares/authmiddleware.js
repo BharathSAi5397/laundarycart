@@ -1,5 +1,6 @@
 const {UserData,OrdersData}= require("../models/laundarymodel");
 var jwt = require('jsonwebtoken');
+
 module.exports.reqAuth=async (req, res, next) => {
   //console.log(req.headers)
     const { authorization } = req.headers;

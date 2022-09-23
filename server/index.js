@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 const dummyRoutes = require("./routes/dummyroutes");
 const { reqAuth } = require("./middlewares/authmiddleware");
 const  orderRoutes  = require("./routes/orderRoutes");
+const cors = require("cors") 
+app.use(cors()) ;
 
 
 //middleware
@@ -14,7 +16,7 @@ app.use(bodyParser());
 app.use(cors())
 app.use("/api/v1/order",reqAuth);//authentication middleware
 
-app.use("/api/v1/posts",reqAuth)
+app.use("/api/v1/order",reqAuth);//authentication middleware
 
 //mongoose connection
 main().catch((err) => console.log(err));

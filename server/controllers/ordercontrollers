@@ -3,7 +3,7 @@ const { OrdersData } = require("../models/laundarymodel");
 //  find the data
 
 module.exports.getorderController = async (req, res) => {
-    console.log(req.body.user);
+    console.log("re",req.body.user);
     try {
         const ordersdata = await OrdersData.find({ user: req.body.user });
         console.log(ordersdata);
@@ -12,7 +12,8 @@ module.exports.getorderController = async (req, res) => {
             ordersdata
         })
     }catch(e){
-        res.status(500).json({
+        console.log("no order found")
+        res.status(200).json({
             "status":"failed",
             "message":e.message
         })
