@@ -1,6 +1,7 @@
 .ordergridContainer{
+    overflow: scroll;
     min-height: 83vh;
-    background-color: aqua;
+    background-color: white;
     display: grid;
     grid-template-columns: 40px auto;
 }
