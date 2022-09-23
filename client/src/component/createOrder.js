@@ -210,8 +210,8 @@ const CreateOrder = () => {
                     </div>
                  
                     <div className='CnameOf'>
-                      <div className='cnamecont'>Shirt</div>
-                      <div className=''>Lorem Ipsum is simply dummy text of the</div>
+                      <h6 className=''>Shirt</h6>
+                      <p className=''>Lorem Ipsum is simply dummy text of the</p>
                     </div>
 
                   </div>

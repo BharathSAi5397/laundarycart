@@ -353,6 +353,7 @@ div.btnScetion{
 }
 
 .CnameOf{
+    text-align: left;
     display: flex;
     flex-direction: column;
     /* float: left; */
