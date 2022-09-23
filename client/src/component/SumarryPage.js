@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./SumarryPage.css";
 import SucessfullModal from "./SucessfullModal";
 import GsumOrderRow from "./GsumOrderRow";
+import tickpic from "../images/tick.png"
 
 export default function SumarryPage({
   GcancelSummary,
@@ -164,9 +165,10 @@ export default function SumarryPage({
         </div>
         <div style={{ fontSize: "12px", color: "#3B3737" }}>Address</div>
         <div className="GprevsumaddressCont" >
-        <div className="Gprevsumaddress">
-          <div>
+        <div className="Gprevsumaddressmain">
+          <div className="homeclassse">
             <b>Home</b>
+            <div><img className="tickimage" src={tickpic} alt="selected" /></div>
           </div>
           <div>#223, 10th road, Jp Nagar, Bangalore</div>
         </div>

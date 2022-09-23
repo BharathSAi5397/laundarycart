@@ -36,8 +36,8 @@ const CreateOrder = () => {
   let userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   const dumtoken = "test eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMmFiMTI2Y2YzMTdiY2Q0OTMyNzQ5MSJ9.qTkERCYshG0jml-XMY7kmPnardpNnNTO07ZiAzpWllQ";
-  console.log("prvorders",userInfo)
-  const token = userInfo ?userInfo.token:dumtoken;
+  console.log("prvorders", userInfo)
+  const token = userInfo ? userInfo.token : dumtoken;
 
   // const token = "test eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMjg4NjlkZGUzYTZlZGUxYzJmOTE1ZiJ9.rTvWSejbfXR0xJlAo7ASfHURJRYdxEo3BmA0RemoXqY";
 
@@ -169,8 +169,23 @@ const CreateOrder = () => {
     setGSummaryStyle('none')
     setorderSucessStyle('block')
   }
+  const rowTotal = (prvTotal, state, quant) => {
+    console.log(prvTotal, state, quant);
+    let tempTotal;
+    if (quant == 0 || !quant) {
+      return 0;
+    }
+    if (state) {
+      tempTotal = prvTotal - 5;
+    }
+    else {
+      tempTotal = prvTotal + 5;
+    }
 
+    return tempTotal;
+  }
 
+console.log("afd",count3.sc)
   return (
     <>
       <OrderHeader />
@@ -206,9 +221,9 @@ const CreateOrder = () => {
                 <td>
                   <div className='CimageConatiner'>
                     <div>
-                    <img className='Cimage' src={shirt} />
+                      <img className='Cimage' src={shirt} />
                     </div>
-                 
+
                     <div className='CnameOf'>
                       <h6 className=''>Shirt</h6>
                       <p className=''>Lorem Ipsum is simply dummy text of the</p>
@@ -217,32 +232,35 @@ const CreateOrder = () => {
                   </div>
                 </td>
                 <td>
-                  <input className='qunatity' onChange={(e) => { setCount1({ ...count1, sc: e.target.value }) }} type="text" value={count1.sc} maxlength="4" size="2" />
+                  <input className='qunatity' onChange={(e) => { setCount1({ ...count1, sc: e.target.value }) }} type="number" value={count1.sc} maxlength="4" size="2" placeholder='0' />
 
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount1({ ...count1, m: true, btn: 1, bill: count1.bill + (1 * 5), total: (count1.bill + 5) * count1.sc }))} id='icon1' src={count1.m ? Bluemachine : Washmach} />
+                  <img className='icon' onClick={() => (setCount1({ ...count1, m: !count1.m, btn: 1, bill: count1.bill + (1 * 5), total: (rowTotal(count1.total, count1.m, count1.sc)) }))} id='icon1' src={count1.m ? Bluemachine : Washmach} />
 
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount1({ ...count1, i: true, btn: 1, bill: count1.bill + (1 * 5), total: (count1.bill + 5) * count1.sc }))} id='icon2' src={count1.i ? BlueIron : iron} />
+                  <img className='icon' onClick={() => (setCount1({ ...count1, i: !count1.i, btn: 1, bill: count1.bill + (1 * 5), total: (rowTotal(count1.total, count1.i, count1.sc)) }))} id='icon2' src={count1.i ? BlueIron : iron} />
 
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount1({ ...count1, t: true, btn: 1, bill: count1.bill + (1 * 5), total: (count1.bill + 5) * count1.sc }))} id='icon3' src={count1.t ? Bluetowel : towel} />
+                  <img className='icon' onClick={() => (setCount1({ ...count1, t: !count1.t, btn: 1, bill: count1.bill + (1 * 5), total: (rowTotal(count1.total, count1.t, count1.sc)) }))} id='icon3' src={count1.t ? Bluetowel : towel} />
 
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount1({ ...count1, b: true, btn: 1, bill: count1.bill + (1 * 5), total: (count1.bill + 5) * count1.sc }))} id='icon4' src={count1.b ? Bluebeach : blech} />
+                  <img className='icon' onClick={() => (setCount1({ ...count1, b: !count1.b, btn: 1, bill: count1.bill + (1 * 5), total: (rowTotal(count1.total, count1.b, count1.sc)) }))} id='icon4' src={count1.b ? Bluebeach : blech} />
 
                 </td>
                 <td>
-                  {count1.btn === 0 ? <span className="dash1">__</span> : <span className="calculator1">{count1.sc} x {count1.bill} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count1.total}</span></span>}
-
+                  
+                  
+                  {!count1.sc ? <span className="dash1">__</span> : <span className="calculator1">{count1.sc} x {count1.total} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count1.total * count1.sc}</span></span>}
+                  
                 </td>
                 <td>
-                  <button style={{ opacity: count1.btn }} onClick={() => (setCount1({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
-
+                  {count1.sc ?
+                    <button style={{ opacity: count1.btn }} onClick={() => (setCount1({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  : ""}
                 </td>
               </tr>
               {/* end here */}
@@ -259,31 +277,40 @@ const CreateOrder = () => {
 
                   </div>
                 </td>
+                
+               
                 <td>
-                  <input className='qunatity' onChange={(e) => (setCount2({ ...count2, sc: e.target.value }))} type="text" value={count2.sc} maxlength="4" size="2" />
-                </td>
-                <td>
-                  <img className='icon' onClick={() => (setCount2({ ...count2, m: true, btn: 1, bill: count2.bill + (1 * 5), total: (count2.bill + 5) * count2.sc }))} id='icon1' src={count2.m ? Bluemachine : Washmach} />
-                </td>
-                <td>
-                  <img className='icon' onClick={() => (setCount2({ ...count2, i: true, btn: 1, bill: count2.bill + (1 * 5), total: (count2.bill + 5) * count2.sc }))} id='icon2' src={count2.i ? BlueIron : iron} />
-                </td>
-                <td>
-                  <img className='icon' onClick={() => (setCount2({ ...count2, t: true, btn: 1, bill: count2.bill + (1 * 5), total: (count2.bill + 5) * count2.sc }))} id='icon3' src={count2.t ? Bluetowel : towel} />
+                  <input className='qunatity' onChange={(e) => { setCount2({ ...count2, sc: e.target.value }) }} type="number" value={count2.sc} maxlength="4" size="2" placeholder='0' />
 
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount2({ ...count2, b: true, btn: 1, bill: count2.bill + (1 * 5), total: (count2.bill + 5) * count2.sc }))} id='icon4' src={count2.b ? Bluebeach : blech} />
+                  <img className='icon' onClick={() => (setCount2({ ...count2, m: !count2.m, btn: 1, bill: count2.bill + (1 * 5), total: (rowTotal(count2.total, count2.m, count2.sc)) }))} id='icon1' src={count2.m ? Bluemachine : Washmach} />
 
                 </td>
                 <td>
-                  {count2.btn === 0 ? <span className="dash1">__</span> : <span className="calculator1">{count2.sc} x {count2.bill} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count2.total}</span></span>}
+                  <img className='icon' onClick={() => (setCount2({ ...count2, i: !count2.i, btn: 1, bill: count2.bill + (1 * 5), total: (rowTotal(count2.total, count2.i, count2.sc)) }))} id='icon2' src={count2.i ? BlueIron : iron} />
 
                 </td>
                 <td>
-                  <button style={{ opacity: count2.btn }} onClick={() => (setCount2({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  <img className='icon' onClick={() => (setCount2({ ...count2, t: !count2.t, btn: 1, bill: count2.bill + (1 * 5), total: (rowTotal(count2.total, count2.t, count2.sc)) }))} id='icon3' src={count2.t ? Bluetowel : towel} />
 
                 </td>
+                <td>
+                  <img className='icon' onClick={() => (setCount2({ ...count2, b: !count2.b, btn: 1, bill: count2.bill + (1 * 5), total: (rowTotal(count2.total, count2.b, count2.sc)) }))} id='icon4' src={count2.b ? Bluebeach : blech} />
+
+                </td>
+                <td>
+                  
+                  
+                  {!count2.sc? <span className="dash1">__</span> : <span className="calculator1">{count2.sc} x {count2.total} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count2.total * count2.sc}</span></span>}
+                  
+                </td>
+                <td>
+                  {count2.sc ?
+                    <button style={{ opacity: count2.btn }} onClick={() => (setCount2({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  : ""}
+                </td>
+              
               </tr>
               {/* end2 */}
               {/* start3 */}
@@ -296,26 +323,36 @@ const CreateOrder = () => {
                   </div>
                 </div>
               </td>
-                <td>
-                  <input className='qunatity' onChange={(e) => (setCount3({ ...count3, sc: e.target.value }))} type="text" value={count3.sc} maxlength="4" size="2" />
+              <td>
+                  <input className='qunatity' onChange={(e) => { setCount3({ ...count3, sc: e.target.value }) }} type="number" value={count3.sc} maxlength="4" size="2" placeholder='0' />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount3({ ...count3, m: true, btn: 1, bill: count3.bill + (1 * 5), total: (count3.bill + 5) * count3.sc }))} id='icon1' src={count3.m ? Bluemachine : Washmach} />
+                  <img className='icon' onClick={() => (setCount3({ ...count3, m: !count3.m, btn: 1, bill: count3.bill + (1 * 5), total: (rowTotal(count3.total, count3.m, count3.sc)) }))} id='icon1' src={count3.m ? Bluemachine : Washmach} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount3({ ...count3, i: true, btn: 1, bill: count3.bill + (1 * 5), total: (count3.bill + 5) * count3.sc }))} id='icon2' src={count3.i ? BlueIron : iron} />
+                  <img className='icon' onClick={() => (setCount3({ ...count3, i: !count3.i, btn: 1, bill: count3.bill + (1 * 5), total: (rowTotal(count3.total, count3.i, count3.sc)) }))} id='icon2' src={count3.i ? BlueIron : iron} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount3({ ...count3, t: true, btn: 1, bill: count3.bill + (1 * 5), total: (count3.bill + 5) * count3.sc }))} id='icon3' src={count3.t ? Bluetowel : towel} />
+                  <img className='icon' onClick={() => (setCount3({ ...count3, t: !count3.t, btn: 1, bill: count3.bill + (1 * 5), total: (rowTotal(count3.total, count3.t, count3.sc)) }))} id='icon3' src={count3.t ? Bluetowel : towel} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount3({ ...count3, b: true, btn: 1, bill: count3.bill + (1 * 5), total: (count3.bill + 5) * count3.sc }))} id='icon4' src={count3.b ? Bluebeach : blech} />
+                  <img className='icon' onClick={() => (setCount3({ ...count3, b: !count3.b, btn: 1, bill: count3.bill + (1 * 5), total: (rowTotal(count3.total, count3.b, count3.sc)) }))} id='icon4' src={count3.b ? Bluebeach : blech} />
+
                 </td>
                 <td>
-                  {count3.btn === 0 ? <span className="dash1">__</span> : <span className="calculator1">{count3.sc} x {count3.bill} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count3.total}</span></span>}
+                  
+                  
+                  {!count3.sc  ? <span className="dash1">__</span> : <span className="calculator1">{count3.sc} x {count3.total} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count3.total * count3.sc}</span></span>}
+                  
                 </td>
                 <td>
-                  <button style={{ opacity: count3.btn }} onClick={() => (setCount3({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  {count3.sc ?
+                    <button style={{ opacity: count3.btn }} onClick={() => (setCount3({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  : ""}
                 </td>
               </tr>
               {/* end3 */}
@@ -329,26 +366,36 @@ const CreateOrder = () => {
                   </div>
                 </div>
               </td>
-                <td>
-                  <input className='qunatity' onChange={(e) => (setCount4({ ...count4, sc: e.target.value }))} type="text" value={count4.sc} maxlength="4" size="2" />
+              <td>
+                  <input className='qunatity' onChange={(e) => { setCount4({ ...count4, sc: e.target.value }) }} type="number" value={count4.sc} maxlength="4" size="2" placeholder='0' />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount4({ ...count4, m: true, btn: 1, bill: count4.bill + (1 * 5), total: (count4.bill + 5) * count4.sc }))} id='icon1' src={count4.m ? Bluemachine : Washmach} />
+                  <img className='icon' onClick={() => (setCount4({ ...count4, m: !count4.m, btn: 1, bill: count4.bill + (1 * 5), total: (rowTotal(count4.total, count4.m, count4.sc)) }))} id='icon1' src={count4.m ? Bluemachine : Washmach} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount4({ ...count4, i: true, btn: 1, bill: count4.bill + (1 * 5), total: (count4.bill + 5) * count4.sc }))} id='icon2' src={count4.i ? BlueIron : iron} />
+                  <img className='icon' onClick={() => (setCount4({ ...count4, i: !count4.i, btn: 1, bill: count4.bill + (1 * 5), total: (rowTotal(count4.total, count4.i, count4.sc)) }))} id='icon2' src={count4.i ? BlueIron : iron} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount4({ ...count4, t: true, btn: 1, bill: count4.bill + (1 * 5), total: (count4.bill + 5) * count4.sc }))} id='icon3' src={count4.t ? Bluetowel : towel} />
+                  <img className='icon' onClick={() => (setCount4({ ...count4, t: !count4.t, btn: 1, bill: count4.bill + (1 * 5), total: (rowTotal(count4.total, count4.t, count4.sc)) }))} id='icon3' src={count4.t ? Bluetowel : towel} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount4({ ...count4, b: true, btn: 1, bill: count4.bill + (1 * 5), total: (count4.bill + 5) * count4.sc }))} id='icon4' src={count4.b ? Bluebeach : blech} />
+                  <img className='icon' onClick={() => (setCount4({ ...count4, b: !count4.b, btn: 1, bill: count4.bill + (1 * 5), total: (rowTotal(count4.total, count4.b, count4.sc)) }))} id='icon4' src={count4.b ? Bluebeach : blech} />
+
                 </td>
                 <td>
-                  {count4.btn === 0 ? <span className="dash1">__</span> : <span className="calculator1">{count4.sc} x {count4.bill} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count4.total}</span></span>}
+                  
+                  
+                  {!count4.sc  ? <span className="dash1">__</span> : <span className="calculator1">{count4.sc} x {count4.total} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count4.total * count4.sc}</span></span>}
+                  
                 </td>
                 <td>
-                  <button style={{ opacity: count4.btn }} onClick={() => (setCount4({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  {count4.sc ?
+                    <button style={{ opacity: count4.btn }} onClick={() => (setCount4({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  : ""}
                 </td>
               </tr>
               {/* end4 */}
@@ -362,26 +409,37 @@ const CreateOrder = () => {
                   </div>
                 </div>
               </td>
-                <td>
-                  <input className='qunatity' onChange={(e) => (setCount5({ ...count5, sc: e.target.value }))} type="text" value={count5.sc} maxlength="4" size="2" />
+                               
+<td>
+                  <input className='qunatity' onChange={(e) => { setCount5({ ...count5, sc: e.target.value }) }} type="number" value={count5.sc} maxlength="4" size="2" placeholder='0' />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount5({ ...count5, m: true, btn: 1, bill: count5.bill + (1 * 5), total: (count5.bill + 5) * count5.sc }))} id='icon1' src={count5.m ? Bluemachine : Washmach} />
+                  <img className='icon' onClick={() => (setCount5({ ...count5, m: !count5.m, btn: 1, bill: count5.bill + (1 * 5), total: (rowTotal(count5.total, count5.m, count5.sc)) }))} id='icon1' src={count5.m ? Bluemachine : Washmach} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount5({ ...count5, i: true, btn: 1, bill: count5.bill + (1 * 5), total: (count5.bill + 5) * count5.sc }))} id='icon2' src={count5.i ? BlueIron : iron} />
+                  <img className='icon' onClick={() => (setCount5({ ...count5, i: !count5.i, btn: 1, bill: count5.bill + (1 * 5), total: (rowTotal(count5.total, count5.i, count5.sc)) }))} id='icon2' src={count5.i ? BlueIron : iron} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount5({ ...count5, t: true, btn: 1, bill: count5.bill + (1 * 5), total: (count5.bill + 5) * count5.sc }))} id='icon3' src={count5.t ? Bluetowel : towel} />
+                  <img className='icon' onClick={() => (setCount5({ ...count5, t: !count5.t, btn: 1, bill: count5.bill + (1 * 5), total: (rowTotal(count5.total, count5.t, count5.sc)) }))} id='icon3' src={count5.t ? Bluetowel : towel} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount5({ ...count5, b: true, btn: 1, bill: count5.bill + (1 * 5), total: (count5.bill + 5) * count5.sc }))} id='icon4' src={count5.b ? Bluebeach : blech} />
+                  <img className='icon' onClick={() => (setCount5({ ...count5, b: !count5.b, btn: 1, bill: count5.bill + (1 * 5), total: (rowTotal(count5.total, count5.b, count5.sc)) }))} id='icon4' src={count5.b ? Bluebeach : blech} />
+
                 </td>
                 <td>
-                  {count5.btn === 0 ? <span className="dash1">__</span> : <span className="calculator1">{count5.sc} x {count5.bill} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count5.total}</span></span>}
+                  
+                  
+                  {!count5.sc  ? <span className="dash1">__</span> : <span className="calculator1">{count5.sc} x {count5.total} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count5.total * count5.sc}</span></span>}
+                  
                 </td>
                 <td>
-                  <button style={{ opacity: count5.btn }} onClick={() => (setCount5({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  {count5.sc ?
+                    <button style={{ opacity: count5.btn }} onClick={() => (setCount5({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  : ""}
                 </td>
               </tr>
               {/* end5 */}
@@ -395,26 +453,37 @@ const CreateOrder = () => {
                   </div>
                 </div>
               </td>
-                <td>
-                  <input className='qunatity' onChange={(e) => (setCount6({ ...count6, sc: e.target.value }))} type="text" value={count6.sc} maxlength="4" size="2" />
+                              
+<td>
+                  <input className='qunatity' onChange={(e) => { setCount6({ ...count6, sc: e.target.value }) }} type="number" value={count6.sc} maxlength="4" size="2" placeholder='0' />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount6({ ...count6, m: true, btn: 1, bill: count6.bill + (1 * 5), total: (count6.bill + 5) * count6.sc }))} id='icon1' src={count6.m ? Bluemachine : Washmach} />
+                  <img className='icon' onClick={() => (setCount6({ ...count6, m: !count6.m, btn: 1, bill: count6.bill + (1 * 5), total: (rowTotal(count6.total, count6.m, count6.sc)) }))} id='icon1' src={count6.m ? Bluemachine : Washmach} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount6({ ...count6, i: true, btn: 1, bill: count6.bill + (1 * 5), total: (count6.bill + 5) * count6.sc }))} id='icon2' src={count6.i ? BlueIron : iron} />
+                  <img className='icon' onClick={() => (setCount6({ ...count6, i: !count6.i, btn: 1, bill: count6.bill + (1 * 5), total: (rowTotal(count6.total, count6.i, count6.sc)) }))} id='icon2' src={count6.i ? BlueIron : iron} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount6({ ...count6, t: true, btn: 1, bill: count6.bill + (1 * 5), total: (count6.bill + 5) * count6.sc }))} id='icon3' src={count6.t ? Bluetowel : towel} />
+                  <img className='icon' onClick={() => (setCount6({ ...count6, t: !count6.t, btn: 1, bill: count6.bill + (1 * 5), total: (rowTotal(count6.total, count6.t, count6.sc)) }))} id='icon3' src={count6.t ? Bluetowel : towel} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount6({ ...count6, b: true, btn: 1, bill: count6.bill + (1 * 5), total: (count6.bill + 5) * count6.sc }))} id='icon4' src={count6.b ? Bluebeach : blech} />
+                  <img className='icon' onClick={() => (setCount6({ ...count6, b: !count6.b, btn: 1, bill: count6.bill + (1 * 5), total: (rowTotal(count6.total, count6.b, count6.sc)) }))} id='icon4' src={count6.b ? Bluebeach : blech} />
+
                 </td>
                 <td>
-                  {count6.btn === 0 ? <span className="dash1">__</span> : <span className="calculator1">{count6.sc} x {count6.bill} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count6.total}</span></span>}
+                  
+                  
+                  {!count6.sc  ? <span className="dash1">__</span> : <span className="calculator1">{count6.sc} x {count6.total} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count6.total * count6.sc}</span></span>}
+                  
                 </td>
                 <td>
-                  <button style={{ opacity: count6.btn }} onClick={() => (setCount6({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  {count6.sc ?
+                    <button style={{ opacity: count6.btn }} onClick={() => (setCount6({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  : ""}
                 </td>
               </tr>
               {/* end6 */}
@@ -428,26 +497,37 @@ const CreateOrder = () => {
                   </div>
                 </div>
               </td>
-                <td>
-                  <input className='qunatity' onChange={(e) => (setCount7({ ...count7, sc: e.target.value }))} type="text" value={count7.sc} maxlength="4" size="2" />
+                             
+<td>
+                  <input className='qunatity' onChange={(e) => { setCount7({ ...count7, sc: e.target.value }) }} type="number" value={count7.sc} maxlength="4" size="2" placeholder='0' />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount7({ ...count7, m: true, btn: 1, bill: count7.bill + (1 * 5), total: (count7.bill + 5) * count7.sc }))} id='icon1' src={count7.m ? Bluemachine : Washmach} />
+                  <img className='icon' onClick={() => (setCount7({ ...count7, m: !count7.m, btn: 1, bill: count7.bill + (1 * 5), total: (rowTotal(count7.total, count7.m, count7.sc)) }))} id='icon1' src={count7.m ? Bluemachine : Washmach} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount7({ ...count7, i: true, btn: 1, bill: count7.bill + (1 * 5), total: (count7.bill + 5) * count7.sc }))} id='icon2' src={count7.i ? BlueIron : iron} />
+                  <img className='icon' onClick={() => (setCount7({ ...count7, i: !count7.i, btn: 1, bill: count7.bill + (1 * 5), total: (rowTotal(count7.total, count7.i, count7.sc)) }))} id='icon2' src={count7.i ? BlueIron : iron} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount7({ ...count7, t: true, btn: 1, bill: count7.bill + (1 * 5), total: (count7.bill + 5) * count7.sc }))} id='icon3' src={count7.t ? Bluetowel : towel} />
+                  <img className='icon' onClick={() => (setCount7({ ...count7, t: !count7.t, btn: 1, bill: count7.bill + (1 * 5), total: (rowTotal(count7.total, count7.t, count7.sc)) }))} id='icon3' src={count7.t ? Bluetowel : towel} />
+
                 </td>
                 <td>
-                  <img className='icon' onClick={() => (setCount7({ ...count7, b: true, btn: 1, bill: count7.bill + (1 * 5), total: (count7.bill + 5) * count7.sc }))} id='icon4' src={count7.b ? Bluebeach : blech} />
+                  <img className='icon' onClick={() => (setCount7({ ...count7, b: !count7.b, btn: 1, bill: count7.bill + (1 * 5), total: (rowTotal(count7.total, count7.b, count7.sc)) }))} id='icon4' src={count7.b ? Bluebeach : blech} />
+
                 </td>
                 <td>
-                  {count7.btn === 0 ? <span className="dash1">__</span> : <span className="calculator1">{count7.sc} x {count7.bill} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count7.total}</span></span>}
+                  
+                  
+                  {!count7.sc  ? <span className="dash1">__</span> : <span className="calculator1">{count7.sc} x {count7.total} = <span style={{ fontSize: "20px", color: "#5861AE" }}>{count7.total * count7.sc}</span></span>}
+                  
                 </td>
                 <td>
-                  <button style={{ opacity: count7.btn }} onClick={() => (setCount7({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  {count7.sc ?
+                    <button style={{ opacity: count7.btn }} onClick={() => (setCount7({ m: false, i: false, t: false, b: false, sc: 0, bill: 0, total: 0 }))} className="">Reset</button>
+                  : ""}
                 </td>
               </tr>
               {/* end7 */}
