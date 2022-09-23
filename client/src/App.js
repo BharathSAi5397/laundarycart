@@ -1,9 +1,9 @@
 import logo from './logo.svg';
-import './App.css';
-import Tester from './component/tester';
-import Header1 from './component/Header1';
+// import './App.css';
+
 import Register from './component/Register';
 import Order from './component/order';
+import Login from './component/login';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import CreateOrder from './component/createOrder';
 
@@ -15,7 +15,8 @@ function App() {
 
     <BrowserRouter>
      <Routes>
-     <Route path='/' element={<Tester />} />
+     <Route path='/' element={<Login />} />
+     <Route path='/Register' element={<Register />} />
       <Route path='/order' element={<Order />} />
       <Route path='/order/create' element={<CreateOrder />} />
     </Routes>
