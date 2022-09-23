@@ -156,6 +156,7 @@ const Register = () => {
                   <input
                     className="input-signup2"
                     name="password"
+                    type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}

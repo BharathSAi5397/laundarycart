@@ -205,10 +205,13 @@ const CreateOrder = () => {
               <tr>
                 <td>
                   <div className='CimageConatiner'>
+                    <div>
                     <img className='Cimage' src={shirt} />
+                    </div>
+                 
                     <div className='CnameOf'>
-                      <h6 className=''>Shirt</h6>
-                      <p className=''>Lorem Ipsum is simply dummy text of the</p>
+                      <div className='cnamecont'>Shirt</div>
+                      <div className=''>Lorem Ipsum is simply dummy text of the</div>
                     </div>
 
                   </div>

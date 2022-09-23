@@ -353,6 +353,9 @@ div.btnScetion{
 }
 
 .CnameOf{
+    display: flex;
+    flex-direction: column;
+    /* float: left; */
     line-height: .1em;
     font-size:small;
 }
