@@ -7,8 +7,12 @@ const mongoose = require("mongoose");
 const dummyRoutes = require("./routes/dummyroutes");
 const { reqAuth } = require("./middlewares/authmiddleware");
 const  orderRoutes  = require("./routes/orderRoutes");
-const cors = require("cors") 
-app.use(cors()) ;
+const cors = require('cors')
+const secret = "RESTAPI";
+var jwt = require('jsonwebtoken'); 
+
+const loginRoutes = require('./routes/login');
+const registrationRoutes = require('./routes/registration');
 
 
 //middleware
@@ -31,7 +35,37 @@ async function main() {
 //dummy routes
 //app.use(dummyRoutes);
 //final get orders route
+
+// app.use("/posts", async (req, res, next) => {
+//   console.log(req.headers.authorization);
+//   if(req.headers.authorization){
+//       const token = req.headers.authorization.split("test ")[1];
+//       console.log(token);
+      
+//       jwt.verify(token, secret, async function(err, decoded) {
+//           if (err) {
+//               res.status(500).json({
+//                   status: "failed",
+//                   message: "Not Authenticated"
+//               })
+//           }
+//           const user = await UserData.findOne({_id: decoded.data});
+//           req.user = value._id;
+//           next();
+//         });
+//   }else {
+//      return  res.status(500).json({
+//           status: "failed",
+//           message: "Invalid token"
+//       })
+//   }
+// });
+
 app.use("/api/v1",orderRoutes);
+app.use("/api/v1/register",registrationRoutes)
+app.use("/api/v1/login", loginRoutes)
+
+
 
 app.get("/", (req, res) => {
   res.send("ok");
