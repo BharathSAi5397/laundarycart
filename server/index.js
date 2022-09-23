@@ -20,7 +20,7 @@ app.use(bodyParser());
 app.use(cors())
 app.use("/api/v1/order",reqAuth);//authentication middleware
 
-app.use("/api/v1/order",reqAuth);//authentication middleware
+app.use("/api/v1/posts",reqAuth);//authentication middleware
 
 //mongoose connection
 main().catch((err) => console.log(err));

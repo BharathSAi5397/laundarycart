@@ -10,8 +10,13 @@ import NoOrderComp from './noorderComponent';
 
 
 const Previousorders = () => {
-    // const token = "test eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMmFiMTI2Y2YzMTdiY2Q0OTMyNzQ5MSJ9.qTkERCYshG0jml-XMY7kmPnardpNnNTO07ZiAzpWllQ";
-    const token ="test eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMjg4NjlkZGUzYTZlZGUxYzJmOTE1ZiJ9.rTvWSejbfXR0xJlAo7ASfHURJRYdxEo3BmA0RemoXqY";
+    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    const dumtoken = "test eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMmFiMTI2Y2YzMTdiY2Q0OTMyNzQ5MSJ9.qTkERCYshG0jml-XMY7kmPnardpNnNTO07ZiAzpWllQ";
+    console.log("prvorders",userInfo)
+    const token = userInfo ?userInfo.token:dumtoken;
+
+
+    // const token ="test eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMjg4NjlkZGUzYTZlZGUxYzJmOTE1ZiJ9.rTvWSejbfXR0xJlAo7ASfHURJRYdxEo3BmA0RemoXqY";
     const [prevData, setPrevData] = useState([]);
     const [prvorderDetails, setprvorderDetails] = useState([0, 0]);
     const [closeb, setCloseb] = useState("none");

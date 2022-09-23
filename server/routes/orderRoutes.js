@@ -8,7 +8,7 @@ router.get("/order",orderController.getorderController)
 
 router.post('/posts' , async (req ,res)=>{
     // post the data
-    console.log(req.body , "req body ")
+    //console.log(req.body , "req body ")
     try{
         const {user, storelocation, city , shirts , tshirts , trousers , jeans , boxers , joggers , others} = req.body
         

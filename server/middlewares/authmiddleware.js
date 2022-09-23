@@ -22,6 +22,7 @@ module.exports.reqAuth=async (req, res, next) => {
       console.log("decoded",decoded)
        const user = await UserData.findOne({ _id: decoded.id });
        req.body.user = user._id;
+       console.log("from create",req.body.user);
       next();
     });
   }

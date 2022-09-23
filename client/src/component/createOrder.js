@@ -33,8 +33,13 @@ import { useNavigate } from 'react-router-dom';
 const CreateOrder = () => {
 
   const navigate = useNavigate()
+  let userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-  const token = "test eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMjg4NjlkZGUzYTZlZGUxYzJmOTE1ZiJ9.rTvWSejbfXR0xJlAo7ASfHURJRYdxEo3BmA0RemoXqY";
+  const dumtoken = "test eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMmFiMTI2Y2YzMTdiY2Q0OTMyNzQ5MSJ9.qTkERCYshG0jml-XMY7kmPnardpNnNTO07ZiAzpWllQ";
+  console.log("prvorders",userInfo)
+  const token = userInfo ?userInfo.token:dumtoken;
+
+  // const token = "test eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMjg4NjlkZGUzYTZlZGUxYzJmOTE1ZiJ9.rTvWSejbfXR0xJlAo7ASfHURJRYdxEo3BmA0RemoXqY";
 
   const [orderSucessStyle, setorderSucessStyle] = useState('none')
 
@@ -459,7 +464,7 @@ const CreateOrder = () => {
 
 
           </div>
-         
+
           <div className='btnScetion'>
             <button onClick={() => navigate('/order')} class="button button1">Cancel</button>
 

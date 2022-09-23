@@ -49,7 +49,7 @@ const OrderHeader = () => {
                     <div>
                         <h3 className="profileuser">{userName}</h3>
                     </div>
-                    <button onClick ={logoutHandler}>Log out</button>
+                    <button className="logoutbutton" onClick ={logoutHandler}>Log out</button>
                 </div>
 
             </div>
