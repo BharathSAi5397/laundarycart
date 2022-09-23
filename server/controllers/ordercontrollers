@@ -1,5 +1,7 @@
 const { OrdersData } = require("../models/laundarymodel");
 
+//  find the data
+
 module.exports.getorderController = async (req, res) => {
     console.log("re",req.body.user);
     try {
@@ -15,6 +17,5 @@ module.exports.getorderController = async (req, res) => {
             "status":"failed",
             "message":e.message
         })
-    }
-    
+    }  
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import OrderFooter from './orderfooter';
 import "./orderfooter.css"
-import OrderHeader from './orderHeader';
+import OrderHeader from './orderHeader.js';
 import "./order.css"
 import Verticalnav from './verticalnav';
 import {  Route, Routes } from 'react-router-dom';
@@ -26,6 +26,9 @@ const Order=()=> {
 
         </div>
         <OrderFooter />
+        <div>
+            order
+        </div>
     </>
     )
 }
