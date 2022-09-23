@@ -360,3 +360,8 @@ div.btnScetion{
     line-height: .1em;
     font-size:small;
 }
+.ressst{
+    border:1px solid #5861AE;
+    /* padding: 0.1em 1em; */
+    color: #5861AE;
+}
