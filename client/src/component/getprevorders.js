@@ -12,7 +12,7 @@ import NoOrderComp from './noorderComponent';
 const Previousorders = () => {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const dumtoken = "test eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMmFiMTI2Y2YzMTdiY2Q0OTMyNzQ5MSJ9.qTkERCYshG0jml-XMY7kmPnardpNnNTO07ZiAzpWllQ";
-    console.log("prvorders",userInfo)
+    //console.log("prvorders",userInfo)
     const token = userInfo ?userInfo.token:dumtoken;
 
 
@@ -23,7 +23,7 @@ const Previousorders = () => {
     const [cancelorderb, setcancelorderb] = useState("none");
     const [datatocancel, setdatatoCancel] = useState("");
     const [topcreatebutton,settopcreatebutton]=useState("none");
-    console.log(prvorderDetails);
+    //console.log(prvorderDetails);
     
     useEffect(()=>{
         const handleFetchData=async ()=>{
@@ -45,12 +45,12 @@ const Previousorders = () => {
     }, []);
 
     const handleViewSummary = (elemDetails) => {
-        console.log("e", elemDetails)
+        //console.log("e", elemDetails)
         setprvorderDetails(elemDetails);
         setCloseb("block");
     }
     const handlecancelorder = (elemDetails) => {
-        console.log("e", elemDetails);
+        //console.log("e", elemDetails);
         setdatatoCancel(elemDetails);
         setCloseb("none");
         setcancelorderb("block");
@@ -59,7 +59,7 @@ const Previousorders = () => {
         setCloseb("none");
         setcancelorderb("none");
     }
-    console.log("c", cancelorderb)
+    //console.log("c", cancelorderb)
     return (
         <div className='prevContainer' >
             <div className="topnav">

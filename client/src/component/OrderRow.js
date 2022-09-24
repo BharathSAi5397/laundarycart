@@ -9,17 +9,25 @@ const OrderRow = (Props) => {
     let array = ['shirts', 'tshirts'];
     let status = ["ready to pickup", "in washing", "ready to deliver", "on route"];
     let num = Math.floor(Math.random() * 4);
-    console.log("date", Props.orderInfo.createdAt);
+    //console.log("date", Props.orderInfo.createdAt);
     let arr = Props.orderInfo.createdAt.split("T");
     const month = ["January", "February", "March", "April",
         "May", "June", "July", "August", "September", "October",
         "November", "December"];
     //console.log(arr);
+    //console.log("date",new Date(Props.orderInfo.createdAt));
+    let tempdatentime=new Date(Props.orderInfo.createdAt);
+    //  tempdatentime=tempdatentime.split(" ");
+    //console.log("date time",tempdatentime.toDateString().split(" "));
+    let acDate=tempdatentime.toDateString().split(" ");
+    let acTime=tempdatentime.toTimeString().split(" ");
+    //console.log("time",acTime[0])
     let temp=arr[0].split("-");
-    let temptime=arr[1].split(":")
+    let temptime=arr[1].split(":");
+    num=temptime[1]%4;
     let date= temp[2]+" "+month[parseInt(temp[1])-1]+" "+temp[0];
     let Time = temptime[0]+":"+temptime[1];
-    let data_time=date+","+Time;
+    let data_time=acDate[2]+" "+acDate[1]+" , "+acDate[3]+","+acTime[0];
     //console.log(data_time)
 
     const totalitems7 = Props.orderInfo.shirts.quantity * (Props.orderInfo.shirts.washing + Props.orderInfo.shirts.ironing + Props.orderInfo.shirts.
@@ -41,6 +49,7 @@ const OrderRow = (Props) => {
         Props.orderInfo.jeans.quantity + Props.orderInfo.boxers.quantity + Props.orderInfo.joggers.quantity + Props.orderInfo.others.quantity)
     const elemDetails = [Props.orderInfo, totalprice * 5, num];
     return (
+        <>
         <tr>
             <th scope="row">{orderId}</th>
             <td>{data_time}</td>
@@ -62,6 +71,7 @@ const OrderRow = (Props) => {
             </button>}</td>
 
         </tr>
+        </>
 
     )
 }

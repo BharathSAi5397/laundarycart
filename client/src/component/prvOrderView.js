@@ -5,7 +5,7 @@ import "./prvOrderView.css"
 
 const ViewprevOrder = (Props) => {
     const data = Props.orderSummaryprev
-    console.log("prvOrder", data[0], data[1], "num", data[2]);
+    //console.log("prvOrder", data[0], data[1], "num", data[2]);
     let cancelstyles = "block"
     if (data[2] != 0) {
         cancelstyles = "none"
