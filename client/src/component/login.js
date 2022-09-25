@@ -38,7 +38,7 @@ const Login = () => {
       let data;
       if (temp == email) {
         let { data } = await axios.post(
-          "http://localhost:8080/api/v1/login",
+          "https://gbplaundary.herokuapp.com/api/v1/login",
           {
             phone: email,
             password,
@@ -57,7 +57,7 @@ const Login = () => {
         localStorage.setItem("userInfo", JSON.stringify(data));
       } else {
         let { data } = await axios.post(
-          "http://localhost:8080/api/v1/login",
+          "https://gbplaundary.herokuapp.com/api/v1/login",
           {
             email,
             password,

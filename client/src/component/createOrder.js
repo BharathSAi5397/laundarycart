@@ -156,7 +156,7 @@ const CreateOrder = () => {
 
     console.log(gSenddata, "g send data")
 
-    const res = await fetch("http://localhost:8080/api/v1/posts", {
+    const res = await fetch("https://gbplaundary.herokuapp.com/api/v1/posts", {
       method: "POST",
       headers: {
         'content-type': "application/json",

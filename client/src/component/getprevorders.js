@@ -27,7 +27,7 @@ const Previousorders = () => {
     
     useEffect(()=>{
         const handleFetchData=async ()=>{
-            const respone = await axios.get("http://localhost:8080/api/v1/order", {
+            const respone = await axios.get("https://gbplaundary.herokuapp.com/api/v1/order", {
                 headers: {
                     Authorization: token
                 }
